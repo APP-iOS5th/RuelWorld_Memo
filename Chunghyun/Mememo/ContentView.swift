@@ -23,6 +23,7 @@ class Memo {
             return dateFormatter.string(from: created)
         }
     }
+    
     var color: Color {
         Color(hex: stringColor)
     }
@@ -40,8 +41,6 @@ struct ContentView: View {
     @Query var memos: [Memo]
     @Environment(\.modelContext) var modelContext
     @State var isSheetShowing: Bool = false
-    
-    let colors: [String] = ["0000ff", "d9ff00", "ff80ed", "ae86bc", "808080"]
     
     var body: some View {
         NavigationStack {
@@ -72,6 +71,14 @@ struct ContentView: View {
                             Image(systemName: "trash.slash")
                             Text("삭제")
                         }
+                        
+                        Button {
+                            
+                        } label:  {
+                            Image(systemName: "pencil")
+                            Text("수정")
+                        }
+                        
                     }
                 }
             }
@@ -87,7 +94,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $isSheetShowing) {
-                MemoAddView(colors: colors, isSheetShowing: $isSheetShowing)
+                MemoAddView(/*colors: colors,*/ isSheetShowing: $isSheetShowing)
             }
         }
     }

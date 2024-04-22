@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MemoAddView: View {
     
-    let colors: [String]
+    let colors: [String] = ["0000ff", "d9ff00", "ff80ed", "ae86bc", "808080"]
     
     @Binding var isSheetShowing: Bool
     @State var memoText: String = ""
@@ -86,5 +86,5 @@ struct MemoAddView: View {
 }
 
 #Preview {
-    MemoAddView(colors:["0000ff", "d9ff00", "ff80ed", "ae86bc", "808080"], isSheetShowing: .constant(true))
+    MemoAddView(/*colors:["0000ff", "d9ff00", "ff80ed", "ae86bc", "808080"],*/ isSheetShowing: .constant(true))
 }
