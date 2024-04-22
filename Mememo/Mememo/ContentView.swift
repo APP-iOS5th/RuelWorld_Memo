@@ -13,13 +13,13 @@ import SwiftData
 class Memo {
     var id: UUID
     var text: String
-//    var color: String
+    //    var color: String
     var created: Date
     
     init(id: UUID = UUID(), text: String, /*color: String,*/ created: Date = Date()) {
         self.id = id
         self.text = text
-//        self.color = color
+        //        self.color = color
         self.created = created
     }
     
@@ -39,7 +39,7 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @State var isSheetShowing: Bool = false
     @State var memoText: String = ""
-       @State var memoColor: Color = .blue
+    @State var memoColor: Color = .blue
     
     let colors: [Color] = [.blue, .cyan, .purple, .yellow, .indigo]
     
@@ -80,7 +80,6 @@ struct ContentView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         isSheetShowing = true
-//                        addMemo()
                     } label : {
                         Image(systemName: "plus")
                     }
@@ -88,19 +87,18 @@ struct ContentView: View {
             }
             .sheet(isPresented: $isSheetShowing) {
                 MemoAddView(colors: colors, isSheetShowing: $isSheetShowing, memoText: $memoText, memoColor: $memoColor)
-            }
                 
-            
+                    
+            }
         }
+        
+        
     }
     
     func removeMemo(_ memo: Memo) {
         modelContext.delete(memo)
     }
-    
-    func addMemo() {
-        modelContext.insert(Memo(text: "hi"))
-    }
+
 }
 
 #Preview {

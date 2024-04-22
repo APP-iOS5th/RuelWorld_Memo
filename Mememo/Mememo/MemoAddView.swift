@@ -15,6 +15,8 @@ struct MemoAddView: View {
     @Binding var memoText: String
     @Binding var memoColor: Color
     
+    @Environment(\.modelContext) var modelContext
+    
     var body: some View {
         VStack {
             HStack {
@@ -27,7 +29,8 @@ struct MemoAddView: View {
                 Spacer()
                 
                 Button {
-                    
+                    let newMemo = Memo(text: memoText)
+                    addMemo(newMemo)
                     isSheetShowing = false
                 } label: {
                     Text("완료")
@@ -39,7 +42,6 @@ struct MemoAddView: View {
                 ForEach(colors, id: \.self) { color in
                     Button {
                         memoColor = color
-                        print(memoColor, color)
                     } label: {
                         HStack {
                             Spacer()
@@ -75,9 +77,12 @@ struct MemoAddView: View {
         .padding()
         
     }
+    
+    func addMemo(_ memo: Memo) {
+        modelContext.insert(memo)
+    }
 }
 
 #Preview {
-//    MemoAddView(colors: [.blue, .cyan, .purple, .yellow, .indigo])
     MemoAddView(colors: [.blue, .cyan, .purple, .yellow, .indigo], isSheetShowing: .constant(true), memoText: .constant(""), memoColor: .constant(.blue))
 }
