@@ -64,7 +64,6 @@ struct MemoAddView: View {
 }
 
 #Preview {
-//    MemoAddView()
     MemoAddView(memoStore: MemoStore(), isSheetShowing: .constant(false), memoText: .constant(""), memoColor: .constant(.blue), colors: [.blue, .yellow, .red, .green])
 
 }
