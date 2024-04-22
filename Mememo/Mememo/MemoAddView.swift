@@ -12,8 +12,8 @@ struct MemoAddView: View {
     let colors: [String]
     
     @Binding var isSheetShowing: Bool
-    @Binding var memoText: String
-    @Binding var memoColor: String
+    @State var memoText: String = ""
+    @State var memoColor: String = "0000ff"
     
     
     @Environment(\.modelContext) var modelContext
@@ -49,6 +49,7 @@ struct MemoAddView: View {
                             
                             if Color(hex:color) == Color(hex:memoColor) {
                                 Image(systemName: "checkmark.circle")
+                                    .foregroundStyle(.black)
                             }
                             
                             Spacer()
@@ -60,8 +61,6 @@ struct MemoAddView: View {
                         .shadow(radius: color == memoColor ? 8 : 0 )
                     }
                 }
-                
-                
             }
             
             Divider()
@@ -87,5 +86,5 @@ struct MemoAddView: View {
 }
 
 #Preview {
-    MemoAddView(colors:["0000ff", "d9ff00", "ff80ed", "ae86bc", "808080"], isSheetShowing: .constant(true), memoText: .constant(""), memoColor: .constant("0000ff"))
+    MemoAddView(colors:["0000ff", "d9ff00", "ff80ed", "ae86bc", "808080"], isSheetShowing: .constant(true))
 }

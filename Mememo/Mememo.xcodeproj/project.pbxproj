@@ -57,10 +57,10 @@
 			children = (
 				41CDA6F72BD637F000967530 /* MememoApp.swift */,
 				41CDA6F92BD637F000967530 /* ContentView.swift */,
-				41CDA6FB2BD637F200967530 /* Assets.xcassets */,
-				41CDA6FD2BD637F200967530 /* Preview Content */,
 				41CDA7052BD63D6B00967530 /* MemoAddView.swift */,
 				41CDA7072BD6499500967530 /* Color+Extension.swift */,
+				41CDA6FB2BD637F200967530 /* Assets.xcassets */,
+				41CDA6FD2BD637F200967530 /* Preview Content */,
 			);
 			path = Mememo;
 			sourceTree = "<group>";

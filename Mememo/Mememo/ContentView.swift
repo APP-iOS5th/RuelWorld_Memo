@@ -33,19 +33,13 @@ class Memo {
         self.stringColor = stringColor
         self.created = created
     }
-    
-    
-    
 }
 
 
 struct ContentView: View {
     @Query var memos: [Memo]
     @Environment(\.modelContext) var modelContext
-    
     @State var isSheetShowing: Bool = false
-    @State var memoText: String = ""
-    @State var memoColor: String = "0000ff"
     
     let colors: [String] = ["0000ff", "d9ff00", "ff80ed", "ae86bc", "808080"]
     
@@ -93,11 +87,9 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $isSheetShowing) {
-                MemoAddView(colors: colors, isSheetShowing: $isSheetShowing, memoText: $memoText, memoColor: $memoColor)
+                MemoAddView(colors: colors, isSheetShowing: $isSheetShowing)
             }
         }
-        
-        
     }
     
     func removeMemo(_ memo: Memo) {
