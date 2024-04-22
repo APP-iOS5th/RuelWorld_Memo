@@ -13,6 +13,7 @@ struct ContentView: View {
     @State var isSheetShowing: Bool = false
     @State var memoText: String = ""
     @State var memoColor: Color = .blue
+    @State var editingMemo: Memo?
     
     let colors: [Color] = [.blue, .cyan, .yellow, .indigo]
     
@@ -34,6 +35,12 @@ struct ContentView: View {
                 .background(memo.color)
                 .shadow(radius: 3)
                 .padding()
+                .onTapGesture {
+                    editingMemo = memo
+                    memoText = memo.text
+                    memoColor = memo.color
+                    isSheetShowing = true
+                }
                 .contextMenu {
                     ShareLink(item: memo.text)
                     Button {
@@ -50,12 +57,18 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("추가") {
                         memoText = ""
+                        memoColor = .blue
+                        editingMemo = nil
                         isSheetShowing = true
                     }
                 }
             }
             .sheet(isPresented: $isSheetShowing) {
-                MemoAddView(memoStore: memoStore, isSheetShowing: $isSheetShowing, memoText: $memoText, memoColor: $memoColor, colors: colors)
+                if let editingMemo = editingMemo {
+                    MemoAddView(memoStore: memoStore, isSheetShowing: $isSheetShowing, memoText: $memoText, memoColor: $memoColor, colors: colors, editingMemo: editingMemo)
+                } else {
+                    MemoAddView(memoStore: memoStore, isSheetShowing: $isSheetShowing, memoText: $memoText, memoColor: $memoColor, colors: colors)
+                }
             }
         }
     }

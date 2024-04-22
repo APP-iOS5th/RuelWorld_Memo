@@ -15,6 +15,7 @@ struct MemoAddView: View {
     @Binding var memoColor: Color
     
     let colors: [Color]
+    var editingMemo: Memo?
     
     var body: some View {
         VStack {
@@ -24,7 +25,11 @@ struct MemoAddView: View {
                 }
                 Spacer()
                 Button("완료") {
-                    memoStore.addMemo(memoText, color: memoColor)
+                    if let editingMemo = editingMemo {
+                            memoStore.editMemo(editingMemo, newText: memoText, newColor: memoColor)
+                        } else {
+                            memoStore.addMemo(memoText, color: memoColor)
+                        }
                     isSheetShowing = false
                 }
                 .disabled(memoText.isEmpty)

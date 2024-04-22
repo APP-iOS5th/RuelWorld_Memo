@@ -44,4 +44,12 @@ class MemoStore: ObservableObject {
             memos.remove(at: index)
         }
     }
+    
+    func editMemo(_ targetMemo: Memo, newText: String, newColor: Color) {
+        if let index = memos.firstIndex(where: { $0.id == targetMemo.id }) {
+            memos[index].text = newText
+            memos[index].color = newColor
+        }
+    }
+
 }
