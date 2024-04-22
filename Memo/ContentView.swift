@@ -93,6 +93,9 @@ struct ContentView: View {
                     }
                 }
             }
+            .sheet(isPresented: $isSheetShowing) {
+                MemoAddView(memoStore: memoStore, isSheetShowing: $isSheetShowing, memoText: $memoText, memoColor: $memoColor, colors: colors)
+            }
         }
     }
 }
