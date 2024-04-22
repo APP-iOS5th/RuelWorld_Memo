@@ -9,11 +9,12 @@ import SwiftUI
 
 struct MemoAddView: View {
     
-    let colors: [Color]
+    let colors: [String]
     
     @Binding var isSheetShowing: Bool
     @Binding var memoText: String
-    @Binding var memoColor: Color
+    @Binding var memoColor: String
+    
     
     @Environment(\.modelContext) var modelContext
     
@@ -29,7 +30,7 @@ struct MemoAddView: View {
                 Spacer()
                 
                 Button {
-                    let newMemo = Memo(text: memoText)
+                    let newMemo = Memo(text: memoText, stringColor: memoColor)
                     addMemo(newMemo)
                     isSheetShowing = false
                 } label: {
@@ -46,7 +47,7 @@ struct MemoAddView: View {
                         HStack {
                             Spacer()
                             
-                            if color == memoColor {
+                            if Color(hex:color) == Color(hex:memoColor) {
                                 Image(systemName: "checkmark.circle")
                             }
                             
@@ -55,7 +56,7 @@ struct MemoAddView: View {
                         .padding()
                         .frame(height: 50)
                         .foregroundStyle(.white)
-                        .background(color)
+                        .background(Color(hex:color))
                         .shadow(radius: color == memoColor ? 8 : 0 )
                     }
                 }
@@ -68,9 +69,11 @@ struct MemoAddView: View {
             
             TextField("메모를 입력하세요", text: $memoText, axis: .vertical)
                 .padding()
-                .foregroundStyle(.white)
-                .background(memoColor)
+                .fontWeight(.bold)
+                .foregroundStyle(.black)
+                .background(Color(hex:memoColor))
                 .shadow(radius: 3)
+               
             Spacer()
             
         }
@@ -84,5 +87,5 @@ struct MemoAddView: View {
 }
 
 #Preview {
-    MemoAddView(colors: [.blue, .cyan, .purple, .yellow, .indigo], isSheetShowing: .constant(true), memoText: .constant(""), memoColor: .constant(.blue))
+    MemoAddView(colors:["0000ff", "d9ff00", "ff80ed", "ae86bc", "808080"], isSheetShowing: .constant(true), memoText: .constant(""), memoColor: .constant("0000ff"))
 }

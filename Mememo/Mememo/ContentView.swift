@@ -13,15 +13,8 @@ import SwiftData
 class Memo {
     var id: UUID
     var text: String
-    //    var color: String
+    var stringColor: String
     var created: Date
-    
-    init(id: UUID = UUID(), text: String, /*color: String,*/ created: Date = Date()) {
-        self.id = id
-        self.text = text
-        //        self.color = color
-        self.created = created
-    }
     
     var createdString: String {
         get {
@@ -30,18 +23,31 @@ class Memo {
             return dateFormatter.string(from: created)
         }
     }
+    var color: Color {
+        Color(hex: stringColor)
+    }
+    
+    init(id: UUID = UUID(), text: String, stringColor: String, created: Date = Date()) {
+        self.id = id
+        self.text = text
+        self.stringColor = stringColor
+        self.created = created
+    }
+    
+    
+    
 }
 
 
 struct ContentView: View {
     @Query var memos: [Memo]
-    
     @Environment(\.modelContext) var modelContext
+    
     @State var isSheetShowing: Bool = false
     @State var memoText: String = ""
-    @State var memoColor: Color = .blue
+    @State var memoColor: String = "0000ff"
     
-    let colors: [Color] = [.blue, .cyan, .purple, .yellow, .indigo]
+    let colors: [String] = ["0000ff", "d9ff00", "ff80ed", "ae86bc", "808080"]
     
     var body: some View {
         NavigationStack {
@@ -51,15 +57,17 @@ struct ContentView: View {
                         VStack(alignment: .leading) {
                             Text("\(memo.text)")
                                 .font(.title)
+                                .foregroundStyle(.black)
                             Text("\(memo.createdString)")
                                 .font(.body)
                                 .padding(.top)
+                                .foregroundStyle(.black)
                         }
                         Spacer()
                     }
                     .padding()
                     .foregroundStyle(.white)
-                    .background(.purple)
+                    .background(memo.color)
                     .shadow(radius: 3)
                     .padding()
                     .contextMenu {
@@ -70,7 +78,6 @@ struct ContentView: View {
                             Image(systemName: "trash.slash")
                             Text("삭제")
                         }
-                        
                     }
                 }
             }
@@ -87,8 +94,6 @@ struct ContentView: View {
             }
             .sheet(isPresented: $isSheetShowing) {
                 MemoAddView(colors: colors, isSheetShowing: $isSheetShowing, memoText: $memoText, memoColor: $memoColor)
-                
-                    
             }
         }
         
@@ -98,7 +103,7 @@ struct ContentView: View {
     func removeMemo(_ memo: Memo) {
         modelContext.delete(memo)
     }
-
+    
 }
 
 #Preview {
